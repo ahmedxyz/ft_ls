@@ -6,7 +6,7 @@
 #    By: hahmed <hahmed@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/21 19:35:52 by hahmed            #+#    #+#              #
-#    Updated: 2018/05/21 16:59:15 by hahmed           ###   ########.fr        #
+#    Updated: 2018/06/07 05:52:36 by hahmed           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ RM = rm -rf
 INC = -I ft_ls.h \
 	  -I libft/include/
 
-SRC = main.c error.c sort.c display_list.c open_read_dirs.c display_long.c \
+SRC = main.c error.c sort.c display_list.c listify_dir.c display_long.c \
 	  width.c
 
 OBJ = $(SRC:.c=.o)
