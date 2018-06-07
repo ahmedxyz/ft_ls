@@ -6,7 +6,7 @@
 /*   By: hahmed <hahmed@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/21 19:57:12 by hahmed            #+#    #+#             */
-/*   Updated: 2018/06/04 10:33:18 by hahmed           ###   ########.fr       */
+/*   Updated: 2018/06/07 06:18:58 by hahmed           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,15 @@ int		file_exists(char *filename)
 	return (1);
 }
 
+char	*ft_strjoin1(char *s1, char *s2)
+{
+	char	*new;
+
+	new = ft_strjoin(s1, s2);
+	free(s1);
+	return (new);
+}
+
 void	add_file(t_list **list, char *filename, char *path)
 {
 	t_file	*file;
@@ -30,7 +39,7 @@ void	add_file(t_list **list, char *filename, char *path)
 	file->path = (path != NULL) ? ft_strjoin(path, filename) :
 									ft_strdup(filename);
 	lstat(file->path, &file->stat);
-	file->path = (S_ISDIR(file->stat.st_mode)) ? ft_strjoin(file->path, "/") :
+	file->path = (S_ISDIR(file->stat.st_mode)) ? ft_strjoin1(file->path, "/") :
 													file->path;
 	ft_lstaddback(list, ft_lstnew(file, sizeof(t_file)));
 	free(file);
@@ -120,7 +129,15 @@ void	split_list(t_list *list, t_list **files, t_list **dirs)
 	}
 	*files = NULL;
 	*dirs = NULL;
-	ft_lstdel(&list, ft_lstfree);
+	ft_lstdel(&list, free_file);
+}
+
+void	free_file(void *content, size_t content_size)
+{
+	(void)content_size;
+	free(((t_file *)content)->name);
+	free(((t_file *)content)->path);
+	free(content);
 }
 
 int		main(int argc, char **argv)
@@ -137,14 +154,14 @@ int		main(int argc, char **argv)
 	if (option->d == 1)
 	{
 		display_list(list, NULL, option);
-		ft_lstdel(&list, ft_lstfree);
+		ft_lstdel(&list, free_file);
 	}
 	else
 	{
 		split_list(list, &files, &dirs);
 		display_list(files, dirs, option);
-		ft_lstdel(&files, ft_lstfree);
-		ft_lstdel(&dirs, ft_lstfree);
+		ft_lstdel(&files, free_file);
+		ft_lstdel(&dirs, free_file);
 	}
 	free(option);
 	return (0);

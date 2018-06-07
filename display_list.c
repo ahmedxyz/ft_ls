@@ -6,7 +6,7 @@
 /*   By: hahmed <hahmed@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/04 10:29:52 by hahmed            #+#    #+#             */
-/*   Updated: 2018/06/04 10:33:30 by hahmed           ###   ########.fr       */
+/*   Updated: 2018/06/07 07:01:08 by hahmed           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void		display_columns(t_list *current, t_option *option, int width)
 		current = next;
 		y++;
 	}
+	free(next);
 }
 
 void		display_recursive(t_list *child, t_option *option)
@@ -68,7 +69,7 @@ void		display_recursive(t_list *child, t_option *option)
 		}
 		child = child->next;
 	}
-	ft_lstdel(&child, ft_lstfree);
+	ft_lstdel(&child, free_file);
 }
 
 void		display_directory(t_list *current, t_option *option)
@@ -91,8 +92,11 @@ void		display_directory(t_list *current, t_option *option)
 	}
 	else
 		display_columns(child, option, width->field7);
+	free(width);
 	if (option->rr == 1)
 		display_recursive(child, option);
+	else
+		ft_lstdel(&child, free_file);
 }
 
 void		display_list(t_list *files, t_list *dirs, t_option *option)
@@ -119,4 +123,5 @@ void		display_list(t_list *files, t_list *dirs, t_option *option)
 			ft_printf("\n");
 		dirs = dirs->next;
 	}
+	free(width);
 }

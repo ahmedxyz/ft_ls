@@ -6,7 +6,7 @@
 /*   By: hahmed <hahmed@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/04 10:30:01 by hahmed            #+#    #+#             */
-/*   Updated: 2018/06/04 10:34:54 by hahmed           ###   ########.fr       */
+/*   Updated: 2018/06/07 06:20:27 by hahmed           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ t_list			*listify_dir(DIR *directory, t_file *current, t_option *option)
 			add_file(&child, entry->d_name, current->path);
 		entry = readdir(directory);
 	}
+	free(entry);
 	return (child);
 }
