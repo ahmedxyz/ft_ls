@@ -12,9 +12,9 @@
 
 NAME = ft_ls
 
-CC = gcc
+CC = gcc-8
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -fsanitize=address -g
 
 RM = rm -rf
 

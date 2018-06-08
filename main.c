@@ -109,27 +109,30 @@ void	parse_options(int argc, char **argv, t_option *option)
 	}
 }
 
-void	split_list(t_list *list, t_list **files, t_list **dirs)
+void	split_list(t_list **list, t_list **files, t_list **dirs)
 {
-	while (list != NULL)
+	t_list	*head;
+
+	head = *list;
+	while (*list != NULL)
 	{
-		if (S_ISDIR(((t_file *)list->content)->stat.st_mode))
+		if (S_ISDIR(((t_file *)(*list)->content)->stat.st_mode))
 		{
 			*dirs = (t_list *)malloc(sizeof(t_list));
-			*dirs = ft_memcpy(*dirs, list, sizeof(*dirs));
+			*dirs = ft_memcpy(*dirs, *list, sizeof(t_list));
 			dirs = &(*dirs)->next;
 		}
 		else
 		{
 			*files = (t_list *)malloc(sizeof(t_list));
-			*files = ft_memcpy(*files, list, sizeof(*files));
+			*files = ft_memcpy(*files, *list, sizeof(t_list));
 			files = &(*files)->next;
 		}
-		list = list->next;
+		list = &(*list)->next;
 	}
 	*files = NULL;
 	*dirs = NULL;
-	ft_lstdel(&list, free_file);
+	free(head);
 }
 
 void	free_file(void *content, size_t content_size)
@@ -137,7 +140,7 @@ void	free_file(void *content, size_t content_size)
 	(void)content_size;
 	free(((t_file *)content)->name);
 	free(((t_file *)content)->path);
-	free(content);
+	free((t_list *)content);
 }
 
 int		main(int argc, char **argv)
@@ -158,8 +161,9 @@ int		main(int argc, char **argv)
 	}
 	else
 	{
-		split_list(list, &files, &dirs);
+		split_list(&list, &files, &dirs);
 		display_list(files, dirs, option);
+	//	ft_lstdel(&list, free_file);
 		ft_lstdel(&files, free_file);
 		ft_lstdel(&dirs, free_file);
 	}

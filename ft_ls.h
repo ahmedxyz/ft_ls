@@ -69,7 +69,7 @@ void			add_file(t_list **list, char *filename, char *path);
 t_list			*listify_args(int argc, char **argv);
 void			set_option(char c, t_option *option);
 void			parse_options(int argc, char **argv, t_option *option);
-void			split_list(t_list *list, t_list **files, t_list **dirs);
+void			split_list(t_list **list, t_list **files, t_list **dirs);
 void			free_file(void *content, size_t content_size);
 int				main(int argc, char **argv);
 

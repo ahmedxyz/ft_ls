@@ -51,7 +51,6 @@ void		display_columns(t_list *current, t_option *option, int width)
 		current = next;
 		y++;
 	}
-	free(next);
 }
 
 void		display_recursive(t_list *child, t_option *option)
@@ -69,7 +68,6 @@ void		display_recursive(t_list *child, t_option *option)
 		}
 		child = child->next;
 	}
-	ft_lstdel(&child, free_file);
 }
 
 void		display_directory(t_list *current, t_option *option)
@@ -92,11 +90,10 @@ void		display_directory(t_list *current, t_option *option)
 	}
 	else
 		display_columns(child, option, width->field7);
-	free(width);
 	if (option->rr == 1)
 		display_recursive(child, option);
-	else
-		ft_lstdel(&child, free_file);
+	ft_lstdel(&child, free_file);
+	free(width);
 }
 
 void		display_list(t_list *files, t_list *dirs, t_option *option)
