@@ -6,7 +6,7 @@
 /*   By: hahmed <hahmed@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/21 19:55:12 by hahmed            #+#    #+#             */
-/*   Updated: 2018/06/07 07:01:10 by hahmed           ###   ########.fr       */
+/*   Updated: 2018/06/09 12:45:04 by hahmed           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,68 +64,116 @@ typedef struct	s_width
 ** main.c
 */
 
-int				file_exists(char *filename);
-void			add_file(t_list **list, char *filename, char *path);
-t_list			*listify_args(int argc, char **argv);
-void			set_option(char c, t_option *option);
-void			parse_options(int argc, char **argv, t_option *option);
-void			split_list(t_list **list, t_list **files, t_list **dirs);
-void			free_file(void *content, size_t content_size);
 int				main(int argc, char **argv);
 
 /*
-** error.c
+** parse_options.c
 */
 
-void			error_illegal_option(char option);
-void			error_no_such_file(char *filename);
+t_option		*parse_options(int argc, char **argv);
+void			set_option(char c, t_option *option);
 
 /*
-** sort.c
+** listify_args.c
 */
 
-int				compare_name(t_list *current, t_list *next);
-int				compare_time(t_list *current, t_list *next);
+t_list			*listify_args(int argc, char **argv);
+int				file_exists(char *name);
+void			add_file_to_list(t_list **list, char *name, char *path);
+
+/*
+** sort_list.c
+*/
+
 t_list			*sort_list(t_list *list, t_option *option);
+int				compare_time(t_list *current, t_list *next);
+int				compare_name(t_list *current, t_list *next);
 
 /*
-** listify_dir.c
+** split_list.c
 */
 
-t_list			*listify_dir(DIR *directory, t_file *current, t_option *option);
+void			split_list(t_list **list, t_list **files, t_list **dirs);
 
 /*
 ** display_list.c
 */
 
-void			display_row(t_list *current, int width, int cols, int rows);
-void			display_columns(t_list *current, t_option *option, int width);
-void			display_directory(t_list *current, t_option *option);
-void			display_recursive(t_list *child, t_option *option);
 void			display_list(t_list	*files, t_list *dirs, t_option *option);
 
 /*
-** display_long.c
+** display_directory.c
 */
 
-blkcnt_t		get_total(t_list *current);
-void			display_permissions(t_file *current);
-void			display_time(t_file *current, t_option *option);
-void			display_name(t_file *current);
-void			display_long(t_file *current, t_option *option, t_width *width);
-void			display_longs(t_list *current, t_option *option, t_width *width);
+void			display_directory(t_list *current, t_option *option);
+t_list			*listify_dir(DIR *directory, t_file *current, t_option *option);
+void			display_recursive(t_list *child, t_option *option);
 
 /*
-** width.c
+** set_width1.c
 */
 
+t_width			*set_width(t_list *current, t_option *option);
 void			set_field1(t_width *width, t_file *current);
 void			set_field2(t_width *width, t_file *current, t_option *option);
 void			set_field3(t_width *width, t_file *current, t_option *option);
 void			set_field4(t_width *width, t_file *current);
+
+/*
+** set_width2.c
+*/
+
 void			set_field5(t_width *width, t_file *current);
 void			set_field6(t_width *width, t_file *current);
 void			set_field7(t_width *width, t_file *current);
-t_width			*set_width(t_list *current, t_option *option);
+
+/*
+** display_long1.c
+*/
+
+blkcnt_t		get_total(t_list *current);
+void			display_long(t_list *current, t_option *option, t_width *width);
+char			get_filetype(t_file *file);
+char			get_suffix(t_file *file);
+void			display_permissions(t_file *file);
+
+/*
+** display_long2.c
+*/
+
+void			display_links(t_file *file, int width);
+void			display_user(t_file *file, t_option *option, int width);
+void			display_group(t_file *file, t_option *option, int width);
+void			display_major(t_file *file, int width);
+void			display_minor(t_file *file, int width);
+
+/*
+** display_long3.c
+*/
+
+void			display_size(t_file *file, int width);
+void			display_time(t_file *file, t_option *option);
+void			display_name(t_file *file);
+
+/*
+** display_columns.c
+*/
+
+void			display_columns(t_list *current, t_option *option, int width);
+void			display_row(t_list *current, int width, int cols, int rows);
+
+/*
+** free.c
+*/
+
+char			*ft_strjoin_free(char *s1, char *s2);
+void			free_file(void *content, size_t content_size);
+
+/*
+** error.c
+*/
+
+void			print_option_error(char option);
+void			print_file_error(char *name);
 
 #endif
