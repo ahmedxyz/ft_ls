@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hahmed <hahmed@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/09 12:00:15 by hahmed            #+#    #+#             */
-/*   Updated: 2018/06/09 12:12:14 by hahmed           ###   ########.fr       */
+/*   Created: 2018/06/09 12:01:13 by hahmed            #+#    #+#             */
+/*   Updated: 2018/06/09 12:12:24 by hahmed           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "../inc/ft_ls.h"
 
-char	*ft_strjoin_free(char *s1, char *s2)
+void	print_option_error(char option)
 {
-	char	*new;
-
-	new = ft_strjoin(s1, s2);
-	free(s1);
-	return (new);
+	ft_putstr_fd("ft_ls: illegal option -- ", 2);
+	ft_putchar_fd(option, 2);
+	ft_putstr_fd("\nusage: ft_ls [-ACRTadglnort1] [file ...]\n", 2);
+	exit(1);
 }
 
-void	free_file(void *content, size_t content_size)
+void	print_file_error(char *name)
 {
-	free(((t_file *)content)->name);
-	free(((t_file *)content)->path);
-	free((t_list *)content);
-	(void)content_size;
+	ft_putstr_fd("ft_ls: ", 2);
+	ft_putstr_fd(name, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(strerror(errno), 2);
+	ft_putchar_fd('\n', 2);
+	exit(1);
 }

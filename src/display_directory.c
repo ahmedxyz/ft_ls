@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "../inc/ft_ls.h"
 
 void		display_directory(t_list *current, t_option *option)
 {
@@ -20,7 +20,7 @@ void		display_directory(t_list *current, t_option *option)
 
 	if ((directory = opendir(((t_file *)current->content)->path)) == NULL)
 		print_file_error(((t_file *)current->content)->name);
-	if (!(child = listify_dir(directory, (t_file *)current->content, option)))
+	if (!(child = dir_to_list(directory, (t_file *)current->content, option)))
 		return ;
 	closedir(directory);
 	child = sort_list(child, option);
@@ -38,7 +38,7 @@ void		display_directory(t_list *current, t_option *option)
 	free(width);
 }
 
-t_list		*listify_dir(DIR *directory, t_file *current, t_option *option)
+t_list		*dir_to_list(DIR *directory, t_file *current, t_option *option)
 {
 	t_list			*child;
 	struct dirent	*entry;

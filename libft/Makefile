@@ -6,7 +6,7 @@
 #    By: hahmed <hahmed@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/09/18 16:35:26 by hahmed            #+#    #+#              #
-#    Updated: 2018/05/13 10:49:55 by hahmed           ###   ########.fr        #
+#    Updated: 2018/11/09 23:27:27 by hahmed           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ FT_PRINTF_DIR = src/ft_printf/
 
 OBJ_DIR = obj/
 
-INC = include/
+INC = inc/
 
 SRC = $(addprefix $(SRC_DIR), $(SRC_FILES)) \
 	  $(addprefix $(FT_PRINTF_DIR), $(FT_PRINTF_FILES))

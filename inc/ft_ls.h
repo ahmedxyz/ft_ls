@@ -6,15 +6,15 @@
 /*   By: hahmed <hahmed@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/21 19:55:12 by hahmed            #+#    #+#             */
-/*   Updated: 2018/06/09 12:45:04 by hahmed           ###   ########.fr       */
+/*   Updated: 2018/11/10 01:05:35 by hahmed           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_LS_H
 # define FT_LS_H
 
-# include "libft/include/libft.h"
-# include "libft/include/ft_printf.h"
+# include "../libft/inc/libft.h"
+# include "../libft/inc/ft_printf.h"
 # include <dirent.h>
 # include <errno.h>
 # include <grp.h>
@@ -74,10 +74,10 @@ t_option		*parse_options(int argc, char **argv);
 void			set_option(char c, t_option *option);
 
 /*
-** listify_args.c
+** args_to_list.c
 */
 
-t_list			*listify_args(int argc, char **argv);
+t_list			*args_to_list(int argc, char **argv);
 int				file_exists(char *name);
 void			add_file_to_list(t_list **list, char *name, char *path);
 
@@ -106,7 +106,7 @@ void			display_list(t_list	*files, t_list *dirs, t_option *option);
 */
 
 void			display_directory(t_list *current, t_option *option);
-t_list			*listify_dir(DIR *directory, t_file *current, t_option *option);
+t_list			*dir_to_list(DIR *directory, t_file *current, t_option *option);
 void			display_recursive(t_list *child, t_option *option);
 
 /*

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "../inc/ft_ls.h"
 
 int		main(int argc, char **argv)
 {
@@ -20,7 +20,7 @@ int		main(int argc, char **argv)
 	t_list		*dirs;
 
 	option = parse_options(argc, argv);
-	list = listify_args(argc, argv);
+	list = args_to_list(argc, argv);
 	list = sort_list(list, option);
 	if (option->d == 1)
 	{

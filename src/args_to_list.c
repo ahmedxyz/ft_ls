@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   listify_args.c                                     :+:      :+:    :+:   */
+/*   args_to_list.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hahmed <hahmed@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/09 11:49:03 by hahmed            #+#    #+#             */
-/*   Updated: 2018/06/09 12:06:08 by hahmed           ###   ########.fr       */
+/*   Updated: 2018/11/10 00:13:22 by hahmed           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "../inc/ft_ls.h"
 
-t_list		*listify_args(int argc, char **argv)
+t_list		*args_to_list(int argc, char **argv)
 {
 	t_list	*list;
 	int		i;
@@ -54,8 +54,8 @@ void		add_file_to_list(t_list **list, char *name, char *path)
 	file->name = ft_strdup(name);
 	file->path = (path != NULL) ? ft_strjoin(path, name) : ft_strdup(name);
 	lstat(file->path, &file->stat);
-	file->path = (S_ISDIR(file->stat.st_mode)) ?
-		ft_strjoin_free(file->path, "/") : file->path;
+	if (S_ISDIR(file->stat.st_mode))
+		file->path = ft_strjoin_free(file->path, "/");
 	ft_lstaddback(list, ft_lstnew(file, sizeof(t_file)));
 	free(file);
 }
